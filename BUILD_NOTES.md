@@ -52,3 +52,31 @@
 	}
 }
 ```
+
+# GRAPHQL TYPE DEFINITIONS
+
+## `GraphQLObjectTypeConfig`
+
+```graphql
+# Object Config
+
+type GraphQLObjectTypeConfig = {
+  name: string;
+  interfaces?: GraphQLInterfacesThunk | Array<GraphQLInterfaceType>;
+  fields: GraphQLFieldConfigMapThunk | GraphQLFieldConfigMap;
+  isTypeOf?: (value: any, info?: GraphQLResolveInfo) => boolean;
+  description?: ?string
+}
+```
+
+```graphql
+# Object Field Config
+
+type GraphQLFieldConfig = {
+  type: GraphQLOutputType;
+  args?: GraphQLFieldConfigArgumentMap;
+  resolve?: GraphQLFieldResolveFn;
+  deprecationReason?: string;
+  description?: ?string;
+}
+```

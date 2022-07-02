@@ -21,8 +21,8 @@
 # RESOURCES
 
 - [GraphQL docs](https://graphql.org/)
-- [BEST PRACTICES](https://graphql.org/learn/best-practices/)
-  - [graphql/type](https://graphql.org/graphql-js/type/#graphqlobjecttype)
+  - [BEST PRACTICES](https://graphql.org/learn/best-practices/)
+  - [GraphQLObjectType](https://graphql.org/graphql-js/type/#graphqlobjecttype)
   - [Constructing Types](https://graphql.org/graphql-js/constructing-types/)
 - []()
 - []()
