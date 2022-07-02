@@ -2,7 +2,7 @@ const users = [
 	{
 		id: "001",
 		name: "Nick Miller",
-		email: "no@robots.com",
+		email: "got@documents.com",
 	},
 	{
 		id: "002",
@@ -52,3 +52,5 @@ const routes = [
 		],
 	},
 ];
+
+module.exports = { users, routes };

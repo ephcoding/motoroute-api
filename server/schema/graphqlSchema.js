@@ -10,7 +10,7 @@ const UserType = new graphql.GraphQLObjectType({
 	}),
 });
 
-// another option
+// optional schema definition
 // const schema = graphql.buildSchema(`
 // type User {
 //   id: ID!
@@ -30,4 +30,8 @@ const RootQuery = new graphql.GraphQLObjectType({
 			},
 		},
 	},
+});
+
+module.exports = new graphql.GraphQLSchema({
+	query: RootQuery,
 });
