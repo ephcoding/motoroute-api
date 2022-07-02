@@ -22,6 +22,12 @@ const UserType = new graphql.GraphQLObjectType({
 const RootQuery = new graphql.GraphQLObjectType({
 	name: "RootQuery",
 	fields: {
+		users: {
+			type: new graphql.GraphQLList(UserType),
+			resolve(parent, args) {
+				return users;
+			},
+		},
 		user: {
 			type: UserType,
 			args: { id: { type: graphql.GraphQLID } },

@@ -22,6 +22,6 @@
 
 - [GraphQL docs](https://graphql.org/)
   - [graphql/type](https://graphql.org/graphql-js/type/#graphqlobjecttype)
-- []()
+  - [Constructing Types](https://graphql.org/graphql-js/constructing-types/)
 - []()
 - []()
