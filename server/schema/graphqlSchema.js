@@ -15,12 +15,8 @@ const RouteType = new graphql.GraphQLObjectType({
 	fields: () => ({
 		id: { type: graphql.GraphQLID },
 		name: { type: graphql.GraphQLString },
-		points: { type: new graphql.GraphQLList(PointType) },
-		user: {
-			type: UserType,
-			resolve(parent, args) {
-				return User.findById(parent.userId);
-			},
+		points: {
+			type: new graphql.GraphQLList(PointType),
 		},
 	}),
 });
@@ -28,30 +24,26 @@ const RouteType = new graphql.GraphQLObjectType({
 const PointType = new graphql.GraphQLObjectType({
 	name: "Point",
 	fields: () => ({
-		timestamp: { type: graphql.GraphQLInt },
-		// coords: new graphql.GraphQLObjectType({
-		// 	name: "coordinates",
-		// 	fields: () => ({
-		// 		latitude: { type: graphql.GraphQLInt },
-		// 		longitude: { type: graphql.GraphQLInt },
-		// 		altitude: { type: graphql.GraphQLInt },
-		// 		accuracy: { type: graphql.GraphQLInt },
-		// 		heading: { type: graphql.GraphQLInt },
-		// 		speed: { type: graphql.GraphQLInt },
-		// 	}),
-		// }),
+		coordinates: { type: CoordinatesType },
+		accuracy: { type: graphql.GraphQLInt },
+		altitude: { type: graphql.GraphQLInt },
+		heading: { type: graphql.GraphQLInt },
+		speed: { type: graphql.GraphQLInt },
+		timestamp: { type: graphql.GraphQLString },
 	}),
 });
 
-// optional schema definition
-// const schema = graphql.buildSchema(`
-// type User {
-//   id: ID
-//   name: String
-//   email: String
-// }
-// `)
+const CoordinatesType = new graphql.GraphQLObjectType({
+	name: "Coordinates",
+	fields: {
+		latitude: { type: graphql.GraphQLInt },
+		longitude: { type: graphql.GraphQLInt },
+	},
+});
 
+// ***********************************************************
+// [ GRAPHQL RESOLVERS: handlers / controllers ]
+// ***********************************************************
 const RootQuery = new graphql.GraphQLObjectType({
 	name: "RootQuery",
 	fields: {
