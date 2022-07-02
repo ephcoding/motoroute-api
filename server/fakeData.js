@@ -23,15 +23,15 @@ const routes = [
 		name: "running",
 		points: [
 			{
-				timestamp: 1656738789770,
 				coords: {
-					latitude: [-25, 49],
-					longitude: [-49, 23],
+					latitude: -25,
+					longitude: 23,
 				},
-				altitude: 1200,
 				accuracy: 1,
+				altitude: 1200,
 				heading: 34,
 				speed: 2,
+				timestamp: "1656738789770",
 			},
 		],
 	},
@@ -41,11 +41,44 @@ const routes = [
 		name: "looking for Ferguson",
 		points: [
 			{
-				timestamp: 1656738789770,
 				coords: {
-					latitude: [-25, 49],
-					longitude: [-49, 23],
+					latitude: -25,
+					longitude: 23,
 				},
+				timestamp: "1656738789770",
+				altitude: 1200,
+				accuracy: 1,
+				heading: 34,
+				speed: 2,
+			},
+			{
+				coords: {
+					latitude: -25,
+					longitude: 23,
+				},
+				timestamp: "1656738789770",
+				altitude: 1200,
+				accuracy: 1,
+				heading: 34,
+				speed: 2,
+			},
+			{
+				coords: {
+					latitude: -25,
+					longitude: 23,
+				},
+				timestamp: "1656738789770",
+				altitude: 1200,
+				accuracy: 1,
+				heading: 34,
+				speed: 2,
+			},
+			{
+				coords: {
+					latitude: -25,
+					longitude: 23,
+				},
+				timestamp: "1656738789770",
 				altitude: 1200,
 				accuracy: 1,
 				heading: 34,
@@ -59,11 +92,22 @@ const routes = [
 		name: "stalking Cecilia & Coach",
 		points: [
 			{
-				timestamp: 1656738789770,
 				coords: {
-					latitude: [-25, 49],
-					longitude: [-49, 23],
+					latitude: -25,
+					longitude: 23,
 				},
+				timestamp: "1656738789770",
+				altitude: 1200,
+				accuracy: 1,
+				heading: 34,
+				speed: 2,
+			},
+			{
+				coords: {
+					latitude: -25,
+					longitude: 23,
+				},
+				timestamp: "1656738789770",
 				altitude: 1200,
 				accuracy: 1,
 				heading: 34,
@@ -77,11 +121,11 @@ const routes = [
 		name: "car wash",
 		points: [
 			{
-				timestamp: 1656738789770,
 				coords: {
-					latitude: [-25, 49],
-					longitude: [-49, 23],
+					latitude: -25,
+					longitude: 23,
 				},
+				timestamp: "1656738789770",
 				altitude: 1200,
 				accuracy: 1,
 				heading: 34,
@@ -95,11 +139,22 @@ const routes = [
 		name: "walk of shame",
 		points: [
 			{
-				timestamp: 1656738789770,
 				coords: {
-					latitude: [-25, 49],
-					longitude: [-49, 23],
+					latitude: -25,
+					longitude: 23,
 				},
+				timestamp: "1656738789770",
+				altitude: 1200,
+				accuracy: 1,
+				heading: 34,
+				speed: 2,
+			},
+			{
+				coords: {
+					latitude: -25,
+					longitude: 23,
+				},
+				timestamp: "1656738789770",
 				altitude: 1200,
 				accuracy: 1,
 				heading: 34,
