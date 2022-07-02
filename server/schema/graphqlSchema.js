@@ -18,13 +18,24 @@ const RouteType = new graphql.GraphQLObjectType({
 		points: {
 			type: new graphql.GraphQLList(PointType),
 		},
+		user: {
+			type: UserType,
+			resolve(parent, args) {
+				return users.find((user) => user.id === parent.userId);
+			},
+		},
 	}),
 });
 
 const PointType = new graphql.GraphQLObjectType({
 	name: "Point",
 	fields: () => ({
-		coordinates: { type: CoordinatesType },
+		coordinates: {
+			type: CoordinatesType,
+			resolve(parent, args) {
+				return parent.coords;
+			},
+		},
 		accuracy: { type: graphql.GraphQLInt },
 		altitude: { type: graphql.GraphQLInt },
 		heading: { type: graphql.GraphQLInt },
@@ -35,10 +46,10 @@ const PointType = new graphql.GraphQLObjectType({
 
 const CoordinatesType = new graphql.GraphQLObjectType({
 	name: "Coordinates",
-	fields: {
+	fields: () => ({
 		latitude: { type: graphql.GraphQLInt },
 		longitude: { type: graphql.GraphQLInt },
-	},
+	}),
 });
 
 // ***********************************************************
