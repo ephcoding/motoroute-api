@@ -7,24 +7,21 @@ const UserType = new graphql.GraphQLObjectType({
 		id: { type: graphql.GraphQLID },
 		name: { type: graphql.GraphQLString },
 		email: { type: graphql.GraphQLString },
-		routes: {
-			type: new graphql.GraphQLList(RouteType),
-			resolve(parent, args) {
-				return Route.findById(parent.id);
-			},
-		},
 	}),
 });
 
 const RouteType = new graphql.GraphQLObjectType({
 	name: "Route",
 	fields: () => ({
-		userId: { type: graphql.GraphQLID },
+		id: { type: graphql.GraphQLID },
 		name: { type: graphql.GraphQLString },
-		// points: {new graphql.GraphQLList(PointType),
-		// resolve(parent,args) {
-		//   return Point.findById(parent.)
-		// }}
+		points: { type: new graphql.GraphQLList(PointType) },
+		user: {
+			type: UserType,
+			resolve(parent, args) {
+				return User.findById(parent.userId);
+			},
+		},
 	}),
 });
 
@@ -32,17 +29,17 @@ const PointType = new graphql.GraphQLObjectType({
 	name: "Point",
 	fields: () => ({
 		timestamp: { type: graphql.GraphQLInt },
-		coords: new graphql.GraphQLObjectType({
-			name: "coordinates",
-			fields: () => ({
-				latitude: { type: graphql.GraphQLInt },
-				longitude: { type: graphql.GraphQLInt },
-				altitude: { type: graphql.GraphQLInt },
-				accuracy: { type: graphql.GraphQLInt },
-				heading: { type: graphql.GraphQLInt },
-				speed: { type: graphql.GraphQLInt },
-			}),
-		}),
+		// coords: new graphql.GraphQLObjectType({
+		// 	name: "coordinates",
+		// 	fields: () => ({
+		// 		latitude: { type: graphql.GraphQLInt },
+		// 		longitude: { type: graphql.GraphQLInt },
+		// 		altitude: { type: graphql.GraphQLInt },
+		// 		accuracy: { type: graphql.GraphQLInt },
+		// 		heading: { type: graphql.GraphQLInt },
+		// 		speed: { type: graphql.GraphQLInt },
+		// 	}),
+		// }),
 	}),
 });
 
