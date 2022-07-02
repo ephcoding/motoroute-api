@@ -5,7 +5,7 @@
 - [ ] define client Queries
 - [ ] fire up MongoDB cluster
 - [ ] define mutations
-- [ ] ..client side
+- [ ] ...client side
 
 # DEPENDENCIES
 
@@ -21,6 +21,7 @@
 # RESOURCES
 
 - [GraphQL docs](https://graphql.org/)
+- [BEST PRACTICES](https://graphql.org/learn/best-practices/)
   - [graphql/type](https://graphql.org/graphql-js/type/#graphqlobjecttype)
   - [Constructing Types](https://graphql.org/graphql-js/constructing-types/)
 - []()
