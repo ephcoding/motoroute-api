@@ -3,19 +3,16 @@ const users = [
 		id: "001",
 		name: "Nick Miller",
 		email: "no@robots.com",
-		password: "shellbeaver",
 	},
 	{
 		id: "002",
 		name: "Winston Schmit",
 		email: "winston.schmit@astrat.com",
-		password: "haroldAndKumar",
 	},
 	{
 		id: "003",
 		name: "Jessica DamnDay",
 		email: "principal@jess.com",
-		password: "peernis",
 	},
 ];
 
