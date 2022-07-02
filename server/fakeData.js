@@ -18,37 +18,93 @@ const users = [
 
 const routes = [
 	{
-		user_id: "001",
-		route_name: "running",
+		id: "1001",
+		userId: "001",
+		name: "running",
 		points: [
-			[-80, 23],
-			[73, 23],
+			{
+				timestamp: 1656738789770,
+				coords: {
+					latitude: [-25, 49],
+					longitude: [-49, 23],
+				},
+				altitude: 1200,
+				accuracy: 1,
+				heading: 34,
+				speed: 2,
+			},
 		],
 	},
 	{
-		user_id: "002",
-		route_name: "stalking Cecilia & Coach",
+		id: "1002",
+		userId: "001",
+		name: "looking for Ferguson",
 		points: [
-			[-80, 23],
-			[73, 23],
-			[-80, 23],
-			[73, 23],
-			[-80, 23],
-			[73, 23],
-			[-80, 23],
-			[73, 23],
+			{
+				timestamp: 1656738789770,
+				coords: {
+					latitude: [-25, 49],
+					longitude: [-49, 23],
+				},
+				altitude: 1200,
+				accuracy: 1,
+				heading: 34,
+				speed: 2,
+			},
 		],
 	},
 	{
-		user_id: "003",
-		route_name: "car wash",
+		id: "1003",
+		userId: "002",
+		name: "stalking Cecilia & Coach",
 		points: [
-			[-80, 23],
-			[73, 23],
-			[-80, 23],
-			[73, 23],
-			[-80, 23],
-			[73, 23],
+			{
+				timestamp: 1656738789770,
+				coords: {
+					latitude: [-25, 49],
+					longitude: [-49, 23],
+				},
+				altitude: 1200,
+				accuracy: 1,
+				heading: 34,
+				speed: 2,
+			},
+		],
+	},
+	{
+		id: "1004",
+		userId: "003",
+		name: "car wash",
+		points: [
+			{
+				timestamp: 1656738789770,
+				coords: {
+					latitude: [-25, 49],
+					longitude: [-49, 23],
+				},
+				altitude: 1200,
+				accuracy: 1,
+				heading: 34,
+				speed: 2,
+			},
+		],
+	},
+	{
+		id: "1005",
+		userId: "003",
+		name: "walk of shame",
+		points: [
+			{
+				timestamp: 1656738789770,
+				coords: {
+					latitude: [-25, 49],
+					longitude: [-49, 23],
+				},
+				altitude: 1200,
+				accuracy: 1,
+				heading: 34,
+				speed: 2,
+			},
 		],
 	},
 ];
