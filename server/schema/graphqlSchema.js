@@ -2,28 +2,36 @@
 const UserModel = require("../models/User");
 const RouteModel = require("../models/Route");
 
-const graphql = require("graphql");
+const {
+	GraphQLEnumType,
+	GraphQLID,
+	GraphQLList,
+	GraphQLNonNull,
+	GraphQLString,
+	GraphQLObjectType,
+	GraphQLSchema,
+} = require("graphql");
 
 // *************************************
 // TYPE DEFINITIONS
 // *************************************
 
-const UserType = new graphql.GraphQLObjectType({
+const UserType = new GraphQLObjectType({
 	name: "User",
 	fields: () => ({
-		id: { type: graphql.GraphQLID },
-		name: { type: graphql.GraphQLString },
-		email: { type: graphql.GraphQLString },
+		id: { type: GraphQLID },
+		name: { type: GraphQLString },
+		email: { type: GraphQLString },
 	}),
 });
 
-const RouteType = new graphql.GraphQLObjectType({
+const RouteType = new GraphQLObjectType({
 	name: "Route",
 	fields: () => ({
-		id: { type: graphql.GraphQLID },
-		name: { type: graphql.GraphQLString },
+		id: { type: GraphQLID },
+		name: { type: GraphQLString },
 		points: {
-			type: new graphql.GraphQLList(PointType),
+			type: new GraphQLList(PointType),
 		},
 		user: {
 			type: UserType,
@@ -35,7 +43,7 @@ const RouteType = new graphql.GraphQLObjectType({
 	}),
 });
 
-const PointType = new graphql.GraphQLObjectType({
+const PointType = new GraphQLObjectType({
 	name: "Point",
 	fields: () => ({
 		coordinates: {
@@ -44,50 +52,50 @@ const PointType = new graphql.GraphQLObjectType({
 				return parent.coords;
 			},
 		},
-		accuracy: { type: graphql.GraphQLInt },
-		altitude: { type: graphql.GraphQLInt },
-		heading: { type: graphql.GraphQLInt },
-		speed: { type: graphql.GraphQLInt },
-		timestamp: { type: graphql.GraphQLString },
+		accuracy: { type: GraphQLInt },
+		altitude: { type: GraphQLInt },
+		heading: { type: GraphQLInt },
+		speed: { type: GraphQLInt },
+		timestamp: { type: GraphQLString },
 	}),
 });
 
-const CoordinatesType = new graphql.GraphQLObjectType({
+const CoordinatesType = new GraphQLObjectType({
 	name: "Coordinates",
 	fields: () => ({
-		latitude: { type: graphql.GraphQLInt },
-		longitude: { type: graphql.GraphQLInt },
+		latitude: { type: GraphQLInt },
+		longitude: { type: GraphQLInt },
 	}),
 });
 
 // *************************************
 // RESOLVERS
 // *************************************
-const RootQuery = new graphql.GraphQLObjectType({
+const RootQuery = new GraphQLObjectType({
 	name: "RootQuery",
 	fields: {
 		users: {
-			type: new graphql.GraphQLList(UserType),
+			type: new GraphQLList(UserType),
 			resolve(parent, args) {
 				return UserModel.find();
 			},
 		},
 		user: {
 			type: UserType,
-			args: { id: { type: graphql.GraphQLID } },
+			args: { id: { type: GraphQLID } },
 			resolve(parent, args) {
 				return UserModel.findById(args.id);
 			},
 		},
 		routes: {
-			type: new graphql.GraphQLList(RouteType),
+			type: new GraphQLList(RouteType),
 			resolve(parent, args) {
 				return RouteModel.find();
 			},
 		},
 		route: {
 			type: RouteType,
-			args: { id: { type: graphql.GraphQLID } },
+			args: { id: { type: GraphQLID } },
 			resolve(parent, args) {
 				return RouteModel.findById(args.id);
 			},
@@ -105,8 +113,8 @@ const mutation = new GraphQLObjectType({
 		addUser: {
 			type: UserType,
 			args: {
-				name: { type: graphql.GraphQLNonNull(graphql.GraphQLString) },
-				email: { type: graphql.GraphQLNonNull(graphql.GraphQLString) },
+				name: { type: GraphQLNonNull(GraphQLString) },
+				email: { type: GraphQLNonNull(GraphQLString) },
 			},
 			resolve(parent, args) {
 				const user = new User({
@@ -123,6 +131,6 @@ const mutation = new GraphQLObjectType({
 	},
 });
 
-module.exports = new graphql.GraphQLSchema({
+module.exports = new GraphQLSchema({
 	query: RootQuery,
 });
