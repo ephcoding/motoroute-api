@@ -146,7 +146,22 @@ const MutationQueries = new GraphQLObjectType({
 			},
 		},
 		// -- EDIT USER
-
+		updateUser: {
+			type: UserType,
+			args: {
+				id: { type: GraphQLNonNull(GraphQLID) },
+				name: { type: GraphQLString },
+				email: { type: GraphQLString },
+			},
+			resolve(parent, args) {
+				return UserModel.findByIdAndUpdate(args.id, {
+					$set: {
+						name: args.name,
+						email: args.email,
+					},
+				});
+			},
+		},
 		// -- ADD ROUTE
 		addRoute: {
 			type: RouteType,
@@ -166,10 +181,10 @@ const MutationQueries = new GraphQLObjectType({
 				},
 				// points: {
 				// 	type: PointType,
-				// 	values: {
+				// 	args: {
 				// 		coords: {
 				// 			type: CoordinatesType,
-				// 			values: {
+				// 			args: {
 				// 				latitude: { type: GraphQLInt },
 				// 				longitude: { type: GraphQLInt },
 				// 			},
@@ -180,7 +195,6 @@ const MutationQueries = new GraphQLObjectType({
 				// 		speed: { type: GraphQLInt },
 				// 		timestamp: { type: GraphQLString },
 				// 	},
-				// 	defaultValue: [],
 				// },
 			},
 			resolve(parent, args) {
@@ -196,17 +210,17 @@ const MutationQueries = new GraphQLObjectType({
 		},
 
 		// -- DELETE ROUTE
-		// deleteRoute: {
-		// 	type: RouteType,
-		// 	args: {
-		// 		id: {
-		// 			type: GraphQLNonNull(GraphQLID),
-		// 		},
-		// 		resolve(parent, args) {
-		// 			return RouteModel.findByIdAndRemove(args.id);
-		// 		},
-		// 	},
-		// },
+		deleteRoute: {
+			type: RouteType,
+			args: {
+				id: {
+					type: GraphQLNonNull(GraphQLID),
+				},
+			},
+			resolve(parent, args) {
+				return RouteModel.findByIdAndRemove(args.id);
+			},
+		},
 
 		// -- EDIT ROUTE
 	},
