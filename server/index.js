@@ -2,11 +2,14 @@ const express = require("express");
 require("dotenv").config();
 const { graphqlHTTP } = require("express-graphql");
 const schema = require("./schema/graphqlSchema");
+const connectMongoDB = require("./database/config");
 const port = process.env.PORT || 5000;
 
 const app = express();
 
-// [.use()]es mounts middleware
+connectMongoDB();
+
+// [.use()] mounts middleware
 app.use(
 	"/graphql",
 	graphqlHTTP({
@@ -15,7 +18,7 @@ app.use(
 	})
 );
 
-// [listen()]s for connections at spec'd port
+// [listen()] listens for connections at spec'd port
 app.listen(port, console.log(`Server listening >>> PORT: ${port} <<<`));
 
 // asdf
