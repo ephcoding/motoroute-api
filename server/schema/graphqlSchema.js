@@ -1,4 +1,7 @@
-const { users, routes } = require("../fakeData");
+// const { users, routes } = require("../fakeData");
+const UserModel = require("../models/User");
+const RouteModel = require("../models/Route");
+
 const graphql = require("graphql");
 
 // *************************************
@@ -25,7 +28,8 @@ const RouteType = new graphql.GraphQLObjectType({
 		user: {
 			type: UserType,
 			resolve(parent, args) {
-				return users.find((user) => user.id === parent.userId);
+				// return users.find((user) => user.id === parent.userId);
+				return RouteMode.findById(parent.userId);
 			},
 		},
 	}),
@@ -65,27 +69,27 @@ const RootQuery = new graphql.GraphQLObjectType({
 		users: {
 			type: new graphql.GraphQLList(UserType),
 			resolve(parent, args) {
-				return users;
+				return UserModel.find();
 			},
 		},
 		user: {
 			type: UserType,
 			args: { id: { type: graphql.GraphQLID } },
 			resolve(parent, args) {
-				return users.find((user) => user.id === args.id);
+				return UserModel.findById(args.id);
 			},
 		},
 		routes: {
 			type: new graphql.GraphQLList(RouteType),
 			resolve(parent, args) {
-				return routes;
+				return RouteModel.find();
 			},
 		},
 		route: {
 			type: RouteType,
 			args: { id: { type: graphql.GraphQLID } },
 			resolve(parent, args) {
-				return routes.find((route) => route.id === args.id);
+				return RouteModel.findById(args.id);
 			},
 		},
 	},
