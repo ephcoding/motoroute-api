@@ -5,6 +5,7 @@ const RouteModel = require("../models/Route");
 const {
 	GraphQLEnumType,
 	GraphQLID,
+	GraphQLInt,
 	GraphQLList,
 	GraphQLNonNull,
 	GraphQLString,
@@ -106,31 +107,52 @@ const RootQuery = new GraphQLObjectType({
 // *************************************
 // MUTATIONS
 // *************************************
-const mutation = new GraphQLObjectType({
+const MutationQueries = new GraphQLObjectType({
 	name: "Mutation",
 	fields: {
-		// add user
+		// -- ADD USER
 		addUser: {
 			type: UserType,
 			args: {
-				name: { type: GraphQLNonNull(GraphQLString) },
-				email: { type: GraphQLNonNull(GraphQLString) },
+				name: { type: new GraphQLNonNull(GraphQLString) },
+				email: { type: new GraphQLNonNull(GraphQLString) },
 			},
 			resolve(parent, args) {
-				const user = new User({
+				const user = new UserModel({
 					name: args.name,
 					email: args.email,
 				});
+
+				return user.save();
 			},
 		},
-		// delete user
-		// edit user
-		// add route
-		// delete route
-		// edit route
+		// -- DELETE USER & AND THEIR ROUTES
+		deleteUser: {
+			type: UserType,
+			args: {
+				id: { type: new GraphQLNonNull(GraphQLString) },
+			},
+			resolve(parent, args) {
+				RouteModel.find({ userId: args.id }).then((routes) => {
+					routes.forEach((route) => {
+						route.remove();
+					});
+				});
+
+				return UserModel.findByIdAndRemove(args.id);
+			},
+		},
+		// -- EDIT USER
+
+		// -- EDIT ROUTE
+
+		// -- EDIT ROUTE
+
+		// -- EDIT ROUTE
 	},
 });
 
 module.exports = new GraphQLSchema({
 	query: RootQuery,
+	mutation: MutationQueries,
 });
