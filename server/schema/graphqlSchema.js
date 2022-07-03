@@ -223,6 +223,22 @@ const MutationQueries = new GraphQLObjectType({
 		},
 
 		// -- EDIT ROUTE
+		updateRoute: {
+			type: RouteType,
+			args: {
+				id: { type: GraphQLNonNull(GraphQLID) },
+				name: { type: GraphQLString },
+				// points: { type: new GraphQLList(PointType) },
+			},
+			resolve(parent, args) {
+				return RouteModel.findByIdAndUpdate(args.id, {
+					$set: {
+						name: args.name,
+						// points: args.points,
+					},
+				});
+			},
+		},
 	},
 });
 
