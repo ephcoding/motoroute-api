@@ -80,3 +80,7 @@ type GraphQLFieldConfig = {
   description?: ?string;
 }
 ```
+
+# MONGODB DATABASE
+
+- DONT FORGET: in _application_ connection string `...mongodb.net/<db_name>...` in addition to password
