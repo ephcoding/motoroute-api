@@ -12,7 +12,7 @@
 1. define Query endpoints
 1. define Mutation endpoints
 
-# TARGET GRAPHQL FUNCTIONALITY
+# GRAPHQL QUERIES & MUTATIONS
 
 ```graphql
 # USERS: returns all fields for all users
@@ -26,7 +26,7 @@
 
 # USER: returns all fields for [User]
 # {
-#   user(id:"003") {
+#   user(id:"62c187f73a8d922bd1f43453") {
 #     id
 #     name
 #     email
@@ -39,6 +39,7 @@
 #   routes {
 #     id
 #     name
+#     # status
 #     user {
 #       id
 #       name
@@ -59,26 +60,79 @@
 # }
 
 # ROUTE: returns all fields for [Route] + specified [User]
-{
-	route(id: "1002") {
-		id
-		name
-		user {
-			name
-		}
-		points {
-			coordinates {
-				latitude
-				longitude
-			}
-			accuracy
-			altitude
-			heading
-			speed
-			timestamp
-		}
-	}
-}
+# {
+#   route(id: "62c19d92d6d843326ee50b2c") {
+#     id
+#     name
+#     user {
+#       name
+#     }
+#     points {
+#       coordinates {
+# 				latitude
+#         longitude
+#       }
+#       accuracy
+#       altitude
+#       heading
+#       speed
+#       timestamp
+#     }
+
+#   }
+# }
+
+# mutation {
+#   addUser(name: "Builder Bob", email: "hard@hat.com") {
+#     id
+#     name
+#     email
+#   }
+# }
+
+# mutation {
+#   deleteUser(id: "62c187023a8d922bd1f4344f") {
+#     id
+#   }
+# }
+
+# mutation {
+#   updateUser(id:"62c1898361e94f8763c6c2d4", email: "bobs@newemail.com") {
+# 		id
+#     name
+#     email
+#   }
+# }
+
+# mutation {
+# 	addRoute(name: "My first route", userId: "62c187f73a8d922bd1f43453") {
+#     name
+#     points {
+#       coordinates {
+#         latitude
+#         longitude
+#       }
+#       accuracy
+#       altitude
+#       heading
+#       speed
+#       timestamp
+#     }
+#   }
+# }
+
+# mutation {
+#   deleteRoute(id:"62c19d92d6d843326ee50b2c") {
+#     id
+#   }
+# }
+
+# mutation {
+#   updateRoute(id:"62c1aaa3dfd0534ae7e9993c", name:"Here's a new route name") {
+#     id
+#     name
+#   }
+# }
 ```
 
 # GRAPHQL TYPE DEFINITIONS

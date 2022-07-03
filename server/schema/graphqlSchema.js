@@ -16,7 +16,6 @@ const {
 // *************************************
 // TYPE DEFINITIONS
 // *************************************
-
 const UserType = new GraphQLObjectType({
 	name: "UserType",
 	fields: () => ({
