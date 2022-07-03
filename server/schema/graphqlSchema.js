@@ -18,7 +18,7 @@ const {
 // *************************************
 
 const UserType = new GraphQLObjectType({
-	name: "User",
+	name: "UserType",
 	fields: () => ({
 		id: { type: GraphQLID },
 		name: { type: GraphQLString },
@@ -27,7 +27,7 @@ const UserType = new GraphQLObjectType({
 });
 
 const RouteType = new GraphQLObjectType({
-	name: "Route",
+	name: "RouteType",
 	fields: () => ({
 		id: { type: GraphQLID },
 		name: { type: GraphQLString },
@@ -38,14 +38,14 @@ const RouteType = new GraphQLObjectType({
 			type: UserType,
 			resolve(parent, args) {
 				// return users.find((user) => user.id === parent.userId);
-				return RouteMode.findById(parent.userId);
+				return RouteModel.findById(parent.userId);
 			},
 		},
 	}),
 });
 
 const PointType = new GraphQLObjectType({
-	name: "Point",
+	name: "PointType",
 	fields: () => ({
 		coordinates: {
 			type: CoordinatesType,
@@ -62,7 +62,7 @@ const PointType = new GraphQLObjectType({
 });
 
 const CoordinatesType = new GraphQLObjectType({
-	name: "Coordinates",
+	name: "CoordinatesType",
 	fields: () => ({
 		latitude: { type: GraphQLInt },
 		longitude: { type: GraphQLInt },
@@ -78,6 +78,7 @@ const RootQuery = new GraphQLObjectType({
 		users: {
 			type: new GraphQLList(UserType),
 			resolve(parent, args) {
+				// Mongoose.find
 				return UserModel.find();
 			},
 		},
@@ -108,16 +109,17 @@ const RootQuery = new GraphQLObjectType({
 // MUTATIONS
 // *************************************
 const MutationQueries = new GraphQLObjectType({
-	name: "Mutation",
+	name: "MutationQueries",
 	fields: {
 		// -- ADD USER
 		addUser: {
 			type: UserType,
 			args: {
-				name: { type: new GraphQLNonNull(GraphQLString) },
-				email: { type: new GraphQLNonNull(GraphQLString) },
+				name: { type: GraphQLNonNull(GraphQLString) },
+				email: { type: GraphQLNonNull(GraphQLString) },
 			},
 			resolve(parent, args) {
+				// inserts new user into [motoroute_db] 'users' [collection]
 				const user = new UserModel({
 					name: args.name,
 					email: args.email,
@@ -130,8 +132,9 @@ const MutationQueries = new GraphQLObjectType({
 		deleteUser: {
 			type: UserType,
 			args: {
-				id: { type: new GraphQLNonNull(GraphQLString) },
+				id: { type: GraphQLNonNull(GraphQLID) },
 			},
+			// delete all routes associated with this user
 			resolve(parent, args) {
 				RouteModel.find({ userId: args.id }).then((routes) => {
 					routes.forEach((route) => {
@@ -144,11 +147,57 @@ const MutationQueries = new GraphQLObjectType({
 		},
 		// -- EDIT USER
 
-		// -- EDIT ROUTE
+		// -- ADD ROUTE
+		addRoute: {
+			type: RouteType,
+			args: {
+				name: { type: GraphQLNonNull(GraphQLString) },
+				userId: { type: GraphQLNonNull(GraphQLID) },
+				status: {
+					type: new GraphQLEnumType({
+						name: "RouteStatus",
+						values: {
+							new: { value: "Not Started" },
+							started: { value: "Incomplete" },
+							finished: { value: "Finished" },
+						},
+					}),
+					defaultValue: "Not Started",
+				},
+				points: {
+					type: PointType,
+					values: {
+						coords: {
+							type: CoordinatesType,
+							values: {
+								latitude: { type: GraphQLInt },
+								longitude: { type: GraphQLInt },
+							},
+						},
+						accuracy: { type: GraphQLInt },
+						altitude: { type: GraphQLInt },
+						heading: { type: GraphQLInt },
+						speed: { type: GraphQLInt },
+						timestamp: { type: GraphQLString },
+					},
+					defaultValue: [],
+				},
+			},
+			resolve(parent, args) {
+				const route = new RouteModel({
+					name: args.name,
+					status: args.status,
+					userId: args.userId,
+					points: args.points,
+				});
+
+				return route.save();
+			},
+		},
 
 		// -- EDIT ROUTE
 
-		// -- EDIT ROUTE
+		// -- DELETE ROUTE
 	},
 });
 
