@@ -23,7 +23,7 @@ const MDBRouteSchema = new mongoose.Schema({
 	name: String,
 	status: {
 		type: String,
-		enum: ["New", "Paused", "Completed"],
+		enum: ["Not Started", "Incomplete", "Finished"],
 	},
 	points: [PointSchema],
 });
