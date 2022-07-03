@@ -38,7 +38,7 @@ const RouteType = new GraphQLObjectType({
 			type: UserType,
 			resolve(parent, args) {
 				// return users.find((user) => user.id === parent.userId);
-				return RouteModel.findById(parent.userId);
+				return UserModel.findById(parent.userId);
 			},
 		},
 	}),
@@ -164,40 +164,51 @@ const MutationQueries = new GraphQLObjectType({
 					}),
 					defaultValue: "Not Started",
 				},
-				points: {
-					type: PointType,
-					values: {
-						coords: {
-							type: CoordinatesType,
-							values: {
-								latitude: { type: GraphQLInt },
-								longitude: { type: GraphQLInt },
-							},
-						},
-						accuracy: { type: GraphQLInt },
-						altitude: { type: GraphQLInt },
-						heading: { type: GraphQLInt },
-						speed: { type: GraphQLInt },
-						timestamp: { type: GraphQLString },
-					},
-					defaultValue: [],
-				},
+				// points: {
+				// 	type: PointType,
+				// 	values: {
+				// 		coords: {
+				// 			type: CoordinatesType,
+				// 			values: {
+				// 				latitude: { type: GraphQLInt },
+				// 				longitude: { type: GraphQLInt },
+				// 			},
+				// 		},
+				// 		accuracy: { type: GraphQLInt },
+				// 		altitude: { type: GraphQLInt },
+				// 		heading: { type: GraphQLInt },
+				// 		speed: { type: GraphQLInt },
+				// 		timestamp: { type: GraphQLString },
+				// 	},
+				// 	defaultValue: [],
+				// },
 			},
 			resolve(parent, args) {
 				const route = new RouteModel({
 					name: args.name,
-					status: args.status,
 					userId: args.userId,
-					points: args.points,
+					status: args.status,
+					// points: args.points,
 				});
 
 				return route.save();
 			},
 		},
 
-		// -- EDIT ROUTE
-
 		// -- DELETE ROUTE
+		// deleteRoute: {
+		// 	type: RouteType,
+		// 	args: {
+		// 		id: {
+		// 			type: GraphQLNonNull(GraphQLID),
+		// 		},
+		// 		resolve(parent, args) {
+		// 			return RouteModel.findByIdAndRemove(args.id);
+		// 		},
+		// 	},
+		// },
+
+		// -- EDIT ROUTE
 	},
 });
 
