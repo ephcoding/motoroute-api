@@ -1,3 +1,7 @@
+# ACTION ITEMS
+
+- [ ] add 'status' prop to schema
+
 # BUILD STEPS
 
 1. install deps
@@ -12,42 +16,66 @@
 
 ```graphql
 # USERS: returns all fields for all users
-{
-	users {
-		id
-		name
-		email
-	}
-}
+# {
+#   users {
+#     id
+#     name
+#     email
+#   }
+# }
 
 # USER: returns all fields for [User]
-{
-	user(id: "003") {
-		id
-		name
-		email
-	}
-}
+# {
+#   user(id:"003") {
+#     id
+#     name
+#     email
+#   }
+# }
 
 # ROUTES: returns all fields for all routes
-{
-	routes {
-		id
-		name
-		points
-	}
-}
+
+# {
+#   routes {
+#     id
+#     name
+#     user {
+#       id
+#       name
+#       email
+#     }
+#     points {
+#       coordinates {
+#         latitude
+#         longitude
+#       }
+#       accuracy
+#       altitude
+#       heading
+#       speed
+#       timestamp
+#     }
+#   }
+# }
 
 # ROUTE: returns all fields for [Route] + specified [User]
 {
 	route(id: "1002") {
 		id
 		name
-		points
 		user {
-			id
 			name
-			email
+		}
+		points {
+			coordinates {
+				latitude
+				longitude
+			}
+			accuracy
+			altitude
+			heading
+			speed
+			timestamp
 		}
 	}
 }
@@ -83,4 +111,25 @@ type GraphQLFieldConfig = {
 
 # MONGODB DATABASE
 
-- DONT FORGET: in _application_ connection string `...mongodb.net/<db_name>...` in addition to password
+- DONT FORGET: replace/add _actual_ db name in connection string `...mongodb.net/<db_name>...` in addition to password
+
+# ISSUES
+
+1. **_MongoDB can't connect to MongoDB Compass_**
+
+ISSUE: `connection <monitor> to 52.6.126.142:27017 closed`
+CAUSE: VPN
+SOLUTION: turn off VPN, connect to MongoDB, reconnect VPN
+NOTE: _re-connecting to VPN prevents db crud ops_
+
+1. **_Mutation `args` prop types_**
+
+ISSUE: getting error that `new` is req'd when instantiating new `GraphQLNonNull` instance
+CAUSE: `graphql` version?
+SOLUTION: down-bump `graphql` to `"15"`
+
+1. **_new user mutation generates unwanted `users` AND `routes`collections_**
+
+ISSUE: Creating new user in MongoDB creates and adds user to a new `users` collection (creates new `routes` collection too)
+CAUSE: built-in collection naming
+SOLUTION:
