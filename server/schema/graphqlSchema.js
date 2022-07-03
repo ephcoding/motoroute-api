@@ -1,6 +1,10 @@
 const { users, routes } = require("../fakeData");
 const graphql = require("graphql");
 
+// *************************************
+// TYPE DEFINITIONS
+// *************************************
+
 const UserType = new graphql.GraphQLObjectType({
 	name: "User",
 	fields: () => ({
@@ -52,9 +56,9 @@ const CoordinatesType = new graphql.GraphQLObjectType({
 	}),
 });
 
-// ***********************************************************
-// [ GRAPHQL RESOLVERS: handlers / controllers ]
-// ***********************************************************
+// *************************************
+// RESOLVERS
+// *************************************
 const RootQuery = new graphql.GraphQLObjectType({
 	name: "RootQuery",
 	fields: {
@@ -84,6 +88,34 @@ const RootQuery = new graphql.GraphQLObjectType({
 				return routes.find((route) => route.id === args.id);
 			},
 		},
+	},
+});
+
+// *************************************
+// MUTATIONS
+// *************************************
+const mutation = new GraphQLObjectType({
+	name: "Mutation",
+	fields: {
+		// add user
+		addUser: {
+			type: UserType,
+			args: {
+				name: { type: graphql.GraphQLNonNull(graphql.GraphQLString) },
+				email: { type: graphql.GraphQLNonNull(graphql.GraphQLString) },
+			},
+			resolve(parent, args) {
+				const user = new User({
+					name: args.name,
+					email: args.email,
+				});
+			},
+		},
+		// delete user
+		// edit user
+		// add route
+		// delete route
+		// edit route
 	},
 });
 
