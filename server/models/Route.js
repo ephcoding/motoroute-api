@@ -18,7 +18,7 @@ const MDBRouteSchema = new mongoose.Schema({
 	// creates reference to UserModel
 	userId: {
 		type: mongoose.Schema.Types.ObjectId,
-		ref: "UserModel",
+		ref: "User",
 	},
 	name: String,
 	status: {
@@ -28,4 +28,4 @@ const MDBRouteSchema = new mongoose.Schema({
 	points: [PointSchema],
 });
 
-module.exports = mongoose.model("RouteModel", MDBRouteSchema);
+module.exports = mongoose.model("Route", MDBRouteSchema);

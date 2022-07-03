@@ -5,4 +5,4 @@ const MDBUserSchema = new mongoose.Schema({
 	email: String,
 });
 
-module.exports = mongoose.model("UserModel", MDBUserSchema);
+module.exports = mongoose.model("User", MDBUserSchema);
